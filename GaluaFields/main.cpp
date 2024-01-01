@@ -17,40 +17,123 @@ int main() {
     std::cout << "Element initialized with binary string3: " << field3.convertToString() << std::endl;
 
     // Test hex convert
-    std::cout << "Hexadecimal representation of field1: " << field1.convertToHex() << std::endl;
+    //std::cout << "Hexadecimal representation of field1: " << field1.convertToHex() << std::endl;
 
     // Test hex convert
-    std::cout << "Hexadecimal representation of field2: " << field2.convertToHex() << std::endl;
+    //std::cout << "Hexadecimal representation of field2: " << field2.convertToHex() << std::endl;
 
     // Test addition operation
-    GaloisField sum = field1.add(field2);
-    std::cout << "Sum of field1 and field2: " << sum.convertToString() << std::endl;
-    std::cout << "Sum of field1 and field2(hex): " << sum.convertToHex() << std::endl;
+    //GaloisField sum = field1.add(field2);
+    //std::cout << "Sum of field1 and field2: " << sum.convertToString() << std::endl;
+    //std::cout << "Sum of field1 and field2(hex): " << sum.convertToHex() << std::endl;
 
     // Test mult operation
-    GaloisField mult = field1.mult(field2);
-    std::cout << "Mult of field1 and field2: " << mult.convertToString() << std::endl;
-    std::cout << "Mult of field1 and field2(hex): " << mult.convertToHex() << std::endl;
+    //GaloisField mult = field1.mult(field2);
+    //std::cout << "Mult of field1 and field2: " << mult.convertToString() << std::endl;
+    //std::cout << "Mult of field1 and field2(hex): " << mult.convertToHex() << std::endl;
 
     // Test square operation
-    GaloisField squaredField1 = field1.square();
-    std::cout << "Square of field1: " << squaredField1.convertToString() << std::endl;
-    std::cout << "Square of field1(hex): " << squaredField1.convertToHex() << std::endl;
+    //GaloisField squaredField1 = field1.square();
+    //std::cout << "Square of field1: " << squaredField1.convertToString() << std::endl;
+    //std::cout << "Square of field1(hex): " << squaredField1.convertToHex() << std::endl;
 
     // Test power operation 
-    GaloisField powerField1 = field1.pow(field3);
-    std::cout << "Field1 raised to the power of field3: " << powerField1.convertToString() << std::endl;
-    std::cout << "Field1 raised to the power of field3(hex): " << powerField1.convertToHex() << std::endl;
+    //GaloisField powerField1 = field1.pow(field3);
+    //std::cout << "Field1 raised to the power of field3: " << powerField1.convertToString() << std::endl;
+    //std::cout << "Field1 raised to the power of field3(hex): " << powerField1.convertToHex() << std::endl;
 
     // Test inverse 
-    GaloisField inverseField1 = field1.inverse();
-    std::cout << "Field1 inversed: " << inverseField1.convertToString() << std::endl;
-    std::cout << "Field1 inversed(hex): " << inverseField1.convertToHex() << std::endl;
+    //GaloisField inverseField1 = field1.inverse();
+    //std::cout << "Field1 inversed: " << inverseField1.convertToString() << std::endl;
+    //std::cout << "Field1 inversed(hex): " << inverseField1.convertToHex() << std::endl;
 
     // Test trace 
-    GaloisField traceField1 = field1.trace();
-    std::cout << "Field1 trace: " << traceField1.convertToString() << std::endl;
-    std::cout << "Field1 trace(hex): " << traceField1.convertToHex() << std::endl;
+    //GaloisField traceField1 = field1.trace();
+    //std::cout << "Field1 trace: " << traceField1.convertToString() << std::endl;
+    //std::cout << "Field1 trace(hex): " << traceField1.convertToHex() << std::endl;
+
+    GaloisField a, b, c, result1, result2;
+
+    a = testBinaryString1; 
+    b = testBinaryString2; 
+    c = testBinaryString3;
+
+    result1 = (a.add(b)).mult(c); // (a + b) * c
+    result2 = a.mult(c).add(b.mult(c)); // a * c + b * c
+
+    if (result1.convertToString() == result2.convertToString()) {
+        std::cout << "Right Distributivity Test Passed" << std::endl;
+    }
+    else {
+        std::cout << "Right Distributivity Test Failed" << std::endl;
+    }
+
+    // Left Distributivity Test: c * (a + b) == c * a + c * b
+    result1 = c.mult(a.add(b)); // c * (a + b)
+    result2 = c.mult(a).add(c.mult(b)); // c * a + c * b
+
+    if (result1.convertToString() == result2.convertToString()) {
+        std::cout << "Left Distributivity Test Passed" << std::endl;
+    }
+    else {
+        std::cout << "Left Distributivity Test Failed" << std::endl;
+    }
+
+    // Commutativity of Addition Test: a + b == b + a
+    result1 = a.add(b); // a + b
+    result2 = b.add(a); // b + a
+
+    if (result1.convertToString() == result2.convertToString()) {
+        std::cout << "Commutativity of Addition Test Passed" << std::endl;
+    }
+    else {
+        std::cout << "Commutativity of Addition Test Failed" << std::endl;
+    }
+
+    // Commutativity of Multiplication Test: a * b == b * a
+    result1 = a.mult(b); // a * b
+    result2 = b.mult(a); // b * a
+
+    if (result1.convertToString() == result2.convertToString()) {
+        std::cout << "Commutativity of Multiplication Test Passed" << std::endl;
+    }
+    else {
+        std::cout << "Commutativity of Multiplication Test Failed" << std::endl;
+    }
+
+    // Square Test: a.ToSquare() == a * a
+    GaloisField squaredA = a.square(); // a.ToSquare()
+    result1 = a.mult(a); // a * a
+
+    if (squaredA.convertToString() == result1.convertToString()) {
+        std::cout << "Square Test Passed" << std::endl;
+    }
+    else {
+        std::cout << "Square Test Failed" << std::endl;
+    }
+
+    // Inverse Element Test: a * a.InverseElement() == 1
+    GaloisField inverseA = a.inverse(); // a.InverseElement()
+    result1 = a.mult(inverseA); // a * a.InverseElement()
+    GaloisField identity = GaloisField::one(); // Identity element '1'
+
+    if (result1.convertToString() == identity.convertToString()) {
+        std::cout << "Inverse Element Test Passed" << std::endl;
+    }
+    else {
+        std::cout << "Inverse Element Test Failed" << std::endl;
+    }
+
+    // Cycle Test
+    std::string maxElement = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
+    GaloisField result = a.pow(maxElement);
+
+    if (result.convertToString() == GaloisField::one().convertToString()) {
+        std::cout << "Cycle Test Passed" << std::endl;
+    }
+    else {
+        std::cout << "Cycle Test Failed" << std::endl;
+    }
 
     return 0;
 }
