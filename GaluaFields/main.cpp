@@ -135,5 +135,72 @@ int main() {
         std::cout << "Cycle Test Failed" << std::endl;
     }
 
+    const int iterations = 10;
+
+    // Measure time for addition
+    long long totalTimeAdd = 0;
+    for (int i = 0; i < iterations; ++i) {
+        auto startTime = std::chrono::high_resolution_clock::now();
+        GaloisField result = a.add(b);
+        auto endTime = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
+        totalTimeAdd += duration.count();
+    }
+    double averageTimeAdd = static_cast<double>(totalTimeAdd) / iterations;
+    std::cout << "Average time for addition: " << averageTimeAdd << " microseconds\n";
+
+    // Measure time for multiplication
+    long long totalTimeMult = 0;
+    for (int i = 0; i < iterations; ++i) {
+        auto startTime = std::chrono::high_resolution_clock::now();
+        GaloisField result = a.mult(b);
+        auto endTime = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
+        totalTimeMult += duration.count();
+    }
+    double averageTimeMult = static_cast<double>(totalTimeMult) / iterations;
+    std::cout << "Average time for multiplication: " << averageTimeMult << " microseconds\n";
+
+    // Measure time for squaring
+    long long totalTimeSquare = 0;
+    for (int i = 0; i < iterations; ++i) {
+        auto startTime = std::chrono::high_resolution_clock::now();
+        GaloisField result = a.square();
+        auto endTime = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
+        totalTimeSquare += duration.count();
+    }
+    double averageTimeSquare = static_cast<double>(totalTimeSquare) / iterations;
+    std::cout << "Average time for squaring: " << averageTimeSquare << " microseconds\n";
+
+    // Measure time for exponentiation
+    long long totalTimePow = 0;
+    for (int i = 0; i < iterations; ++i) {
+        auto startTime = std::chrono::high_resolution_clock::now();
+        GaloisField result = a.pow(b);
+        auto endTime = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
+        totalTimePow += duration.count();
+    }
+    double averageTimePow = static_cast<double>(totalTimePow) / iterations;
+    std::cout << "Average time for exponentiation: " << averageTimePow << " microseconds\n";
+
+    // Measure time for inversion
+    long long totalTimeInverse = 0;
+    for (int i = 0; i < iterations; ++i) {
+        auto startTime = std::chrono::high_resolution_clock::now();
+        GaloisField result = a.inverse();
+        auto endTime = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
+        totalTimeInverse += duration.count();
+    }
+    double averageTimeInverse = static_cast<double>(totalTimeInverse) / iterations;
+    std::cout << "Average time for inversion: " << averageTimeInverse << " microseconds\n";
+
     return 0;
 }
