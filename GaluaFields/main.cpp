@@ -52,11 +52,16 @@ int main() {
     //std::cout << "Field1 trace: " << traceField1.convertToString() << std::endl;
     //std::cout << "Field1 trace(hex): " << traceField1.convertToHex() << std::endl;
 
-    GaloisField a, b, c, result1, result2;
+    GaloisField  result1, result2;
+    
+    GaloisField a;
+    a.generateRandomBinaryString(281);
 
-    a = testBinaryString1; 
-    b = testBinaryString2; 
-    c = testBinaryString3;
+    GaloisField b;
+    b.generateRandomBinaryString(281);
+
+    GaloisField c;
+    c.generateRandomBinaryString(281);
 
     result1 = (a.add(b)).mult(c); // (a + b) * c
     result2 = a.mult(c).add(b.mult(c)); // a * c + b * c

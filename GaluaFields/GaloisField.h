@@ -3,6 +3,7 @@
 #include <string>
 #include <bitset>
 #include <chrono>
+#include <random>
 
 class GaloisField {
 private:
@@ -37,5 +38,8 @@ public:
     // Constants
     static GaloisField zero();
     static GaloisField one();
+
+    // Generator
+    void generateRandomBinaryString(size_t size);
 
 };

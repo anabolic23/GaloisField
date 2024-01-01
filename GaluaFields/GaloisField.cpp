@@ -197,3 +197,15 @@ GaloisField GaloisField::one() {
 
     return GaloisField(neutralOne);
 }
+
+void GaloisField::generateRandomBinaryString(size_t size) {
+    if (size > degree)
+        size = degree;
+
+    float probability = 0.5;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::bernoulli_distribution d(probability);
+    for (size_t i = 0; i < size; i++)
+        element[i] = d(gen);
+}
