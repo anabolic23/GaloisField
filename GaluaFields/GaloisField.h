@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <bitset>
+#include <chrono>
 
 class GaloisField {
 private:
